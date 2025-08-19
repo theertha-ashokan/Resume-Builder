@@ -15,3 +15,5 @@
 
 6. setup url for components
    - install react-router-dom : npm i react-router-dom
+
+7. 

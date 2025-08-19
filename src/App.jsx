@@ -18,9 +18,9 @@ function App() {
     <Header/>
     <Routes>
      <Route path='/' element={<LandingPage/>}/>
-     <Route path='resume' element={<ResumeGenerator/>}/>
+     <Route path='/resume' element={<ResumeGenerator/>}/>
       <Route path='form' element={<UserForm/>}/>
-     <Route path='history' element={<History/>}/>
+     <Route path='/history' element={<History/>}/>
       <Route path='/*' element={<PageNotFound/>}/>
 
     </Routes>
