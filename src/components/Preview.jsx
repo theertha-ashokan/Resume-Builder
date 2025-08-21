@@ -9,63 +9,70 @@ import { MdManageHistory } from "react-icons/md";
 import Edit from './Edit';
 
 
-function Preview() {
+function Preview({userInput}) {
+  console.log(userInput);
+  
   return (
     <>
-      <div>
+     
         {/* stack creation */}
-        <Stack direction={'row'} sx={{ marginTop: '50px', justifyContent: 'flex-end' }}>
-             <Stack direction={'row'} sx={{alignItems:'center'}}>
+       {userInput.personalData.name!=""&&
 
-              {/* dowmload */}
-              <button className='btn fs-5 text-primary'> <FaDownload /></button>
-              
-              {/* edit */}
-              <div>
-                <Edit/>
-              </div>
-
-              {/* history */}
-              <Link to={'/history'} className='btn fs-5 text-primary'>
-             <MdManageHistory />
-              </Link>
- 
-                {/* back */}
-                <Link to={'/resume'} className='btn fs-5 text-primary'>
-                 Back
-              </Link>
-
-             </Stack>
-        </Stack>
-
-        <Box component="section" sx={{ p: 2, textAlign: 'center' }} >
-          <Paper elevation={3} sx={{my:5 ,textAlign: 'center', p: 5 }}>
-            <h2>Name</h2>
-            <h6>Job Title</h6>
-            <p><span>location</span>|<span>Email</span>|<span>Phone</span></p>
-            <p>
-              <Link href={""}>GitHub</Link>|
-              <Link href={""}>Linkedin</Link>|
-              <Link href={""}>Portfolio</Link>
-            </p>
-            <Divider sx={{ fontSize: '25px' }}>Summary</Divider>
-
-            <p className="fs-5 text-start">User Summary</p>
-            <Divider sx={{ fontSize: '25px', marginBottom: '10px' }}>Education</Divider>
-            <h5>User Education</h5>
-            <p><span>College</span>|<span>University</span>|<span>Year</span></p>
-
-            <Divider sx={{ fontSize: '25px', marginBottom: '10px' }}>Professional Experience</Divider>
-            <h5>User Job</h5>
-            <p><span>Company</span>|<span>Location</span>|<span>Duration</span></p>
-            <Divider sx={{ fontSize: '25px', marginBottom: '10px' }}> Skills</Divider>
-            <Stack spacing={2} direction="row" sx={{ flexWrap: 'wrap', gap: '10px' }}>
-              <Button variant="contained">User Skills</Button>
+          <>
+            <Stack direction={'row'} sx={{ marginTop: '50px', justifyContent: 'flex-end' }}>
+                 <Stack direction={'row'} sx={{alignItems:'center'}}>
+    
+                  {/* dowmload */}
+                  <button className='btn fs-5 text-primary'> <FaDownload /></button>
+                  
+                  {/* edit */}
+                  <div>
+                    <Edit/>
+                  </div>
+    
+                  {/* history */}
+                  <Link to={'/history'} className='btn fs-5 text-primary'>
+                 <MdManageHistory />
+                  </Link>
+     
+                    {/* back */}
+                    <Link to={'/resume'} className='btn fs-5 text-primary'>
+                     Back
+                  </Link>
+    
+                 </Stack>
             </Stack>
-          </Paper>
-        </Box>
+    
+            <Box component="section" sx={{ p: 2, textAlign: 'center' }} >
+              <Paper elevation={3} sx={{my:5 ,textAlign: 'center', p: 5 }}>
+                <h2>{userInput.personalData.name}</h2>
+                <h6>{userInput.personalData.jobTitle}</h6>
+                <p><span>{userInput.personalData.location}</span>|<span>{userInput.personalData.email}</span>|<span>{userInput.personalData.phone}</span></p>
+                <p>
+                  <Link href={""}>{userInput.personalData.github}</Link>|
+                  <Link href={""}>{userInput.personalData.linkedin}</Link>|
+                  <Link href={""}>{userInput.personalData.portfolio}</Link>
+                </p>
+                <Divider sx={{ fontSize: '25px' }}>Summary</Divider>
+    
+                <p className="fs-5 text-start">{userInput.summary}</p>
+                <Divider sx={{ fontSize: '25px', marginBottom: '10px' }}>Education</Divider>
+                <h5>{userInput.education.course}</h5>
+                <p><span>{userInput.education.college}</span>|<span>{userInput.education.university}</span>|<span>{userInput.education.year}</span></p>
+    
+                <Divider sx={{ fontSize: '25px', marginBottom: '10px' }}>Professional Experience</Divider>
+                <h5>{userInput.experience.jobRole}</h5>
+                <p><span>{userInput.experience.company}</span>|<span>{userInput.experience.jobLocation}</span>|<span>{userInput.experience.duration}</span></p>
+                <Divider sx={{ fontSize: '25px', marginBottom: '10px' }}> Skills</Divider>
+                <Stack spacing={2} direction="row" sx={{ flexWrap: 'wrap', gap: '10px' }}>
+                  <Button variant="contained">{userInput.skills}</Button>
+                </Stack>
+              </Paper>
+            </Box>
+          </>
+       }
 
-      </div>
+      
     </>
   )
 }
