@@ -6,12 +6,15 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import swal from 'sweetalert';
+import { addResumeAPI } from '../services/allAPI';
+
 
 
 const steps = ['Basic Informations', 'Contact Details', 'Education Details', 'Work Experience', 'Skills & Certifications', 'Review and Submit'];
 
 // Steps({userInput,setUserInput})--this is destructuring
-function Steps({userInput,setUserInput}) {  
+function Steps({userInput,setUserInput,setFinish}) {  
   const skillSuggestionArray = ['NODE JS', 'EXPRESS', 'MONGODB', 'REACT', 'ANGULAR', 'NEXT JS', 'BOOTSTRAP', 'TAILWINDCSS', 'GIT']
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -190,6 +193,30 @@ function Steps({userInput,setUserInput}) {
     }
   }
 
+  // add resume
+ const handleAddResume =async()=>{
+  //  alert("API called")
+
+  //Api call
+  const {name,jobTitle,location}=userInput.personalData
+  if(name && jobTitle && location){
+   try{
+    const result = await addResumeAPI(userInput)
+    console.log(result);
+    swal("Success!","Resume added Successfully!","Success");
+    setFinish(true)
+   }catch(err){
+    console.log(err);
+     swal("Error!","Resume added Failed!","Error");
+    setFinish(false)
+   }
+
+  }else{
+    alert("fill the form")
+  }
+
+ }
+
   return (
     <Box sx={{ width: '100%' }}>
       <Stepper activeStep={activeStep}>
@@ -243,9 +270,13 @@ function Steps({userInput,setUserInput}) {
                 Skip
               </Button>
             )}
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-            </Button>
+           
+              {
+              activeStep === steps.length - 1 ? 
+              <Button onClick={handleAddResume}>Finish</Button> : 
+              <Button onClick={handleNext}>Next</Button>
+              }
+           
           </Box>
         </React.Fragment>
       )}
