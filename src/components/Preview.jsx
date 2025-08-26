@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import { Divider, Paper } from '@mui/material';
 import { Link } from 'react-router-dom'
@@ -9,10 +9,12 @@ import { MdManageHistory } from "react-icons/md";
 import Edit from './Edit';
 import html2canvas from 'html2canvas';
 import { jsPDF } from "jspdf";
+import { addDownloadHistoryAPI } from '../services/allAPI';
 
 
-function Preview({userInput}) {
 
+function Preview({userInput,finish}) {
+ const [downloadStatus,setDownloadStatus] = useState(false)
 
   const downloadCV = async()=>{
     // get element for taking screenshot
@@ -34,7 +36,15 @@ function Preview({userInput}) {
     
 
     // add downloaded CV to history json using api call
-    
+    try{
+      const result = await addDownloadHistoryAPI({...userInput,imgURL,timeStamp})
+      console.log(result);
+      setDownloadStatus(true)
+      
+    }catch(err){
+      console.log(err);
+      
+    }
 
   }
 
@@ -47,13 +57,18 @@ function Preview({userInput}) {
 
           <>
           
-            <Stack direction={'row'} sx={{ marginTop: '50px', justifyContent: 'flex-end' }}>
+            {
+              finish &&
+              <Stack direction={'row'} sx={{ marginTop: '50px', justifyContent: 'flex-end' }}>
                  <Stack direction={'row'} sx={{alignItems:'center'}}>
     
                   {/* download */}
                   <button onClick={downloadCV} className='btn fs-5 text-primary'> <FaDownload /></button>
-                  
-                  {/* edit */}
+
+                  {
+                    downloadStatus &&
+                  <>
+                   {/* edit */}
                   <div>
                     <Edit/>
                   </div>
@@ -62,6 +77,8 @@ function Preview({userInput}) {
                   <Link to={'/history'} className='btn fs-5 text-primary'>
                  <MdManageHistory />
                   </Link>
+                  </>
+                 }
      
                     {/* back */}
                     <Link to={'/resume'} className='btn fs-5 text-primary'>
@@ -70,6 +87,7 @@ function Preview({userInput}) {
     
                  </Stack>
             </Stack>
+            }
            
     
             <Box component="section" sx={{ p: 2, textAlign: 'center' }} >

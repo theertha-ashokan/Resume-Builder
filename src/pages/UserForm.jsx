@@ -39,7 +39,7 @@ const [userInput, setUserInput] = React.useState({
      {
       finish?
       <div style={{height:'100vh'}}className='d-flex justify-content-center align-items-center'>
-         <Preview userInput={userInput}/>
+         <Preview userInput={userInput} finish={finish}/>
       </div>
       :
       <div className="container">
@@ -48,7 +48,7 @@ const [userInput, setUserInput] = React.useState({
             <Steps userInput={userInput} setUserInput={setUserInput}setFinish={setFinish}/>
           </div>
           <div className="col-lg-6">
-            <Preview userInput={userInput} finish={finish}/>
+            <Preview userInput={userInput}/>
           </div> 
         </div>
       </div>
