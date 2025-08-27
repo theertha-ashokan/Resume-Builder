@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { MdDeleteForever } from "react-icons/md";
-import { getHistoryAPI } from '../services/allAPI';
+import { deleteHistoryAPI, getHistoryAPI } from '../services/allAPI';
 
 function History() {
 
@@ -17,7 +17,7 @@ function History() {
   // [] = empty dependency array → runs only once
   useEffect(()=>{
     getHistory()
-  },[])
+  },[resume])
 
   const getHistory = async ()=>{
     try{
@@ -30,8 +30,18 @@ function History() {
       
     }
   }
-console.log(resume);
+// console.log(resume);
 
+//  delete downloaded resume from history
+     const handleRemoveHistory = async (id)=>{
+      try{
+        await deleteHistoryAPI(id)
+        getHistory()
+      }catch(err){
+        console.log(err);
+        
+      }
+     }
   
 
   return (
@@ -51,7 +61,7 @@ console.log(resume);
               <Paper elevation={3} sx={{my:5 ,textAlign: 'center', p: 5 }}>
                  <div className='d-flex  align-items-center justify-content-evently'>
                    <h5>Review At:<br/>{item?.timeStamp}</h5>
-                   <button  className='btn text-danger fs-4 ms-5'><MdDeleteForever /></button>
+                   <button onClick={()=>handleRemoveHistory(item?.id)} className='btn text-danger fs-4 ms-5'><MdDeleteForever /></button>
                  </div>
 
                 <div className='border rounded p-3'> 

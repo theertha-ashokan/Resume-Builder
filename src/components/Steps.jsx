@@ -14,7 +14,7 @@ import { addResumeAPI } from '../services/allAPI';
 const steps = ['Basic Informations', 'Contact Details', 'Education Details', 'Work Experience', 'Skills & Certifications', 'Review and Submit'];
 
 // Steps({userInput,setUserInput})--this is destructuring
-function Steps({userInput,setUserInput,setFinish}) {  
+function Steps({userInput,setUserInput,setFinish,setResumeID}) {  
   const skillSuggestionArray = ['NODE JS', 'EXPRESS', 'MONGODB', 'REACT', 'ANGULAR', 'NEXT JS', 'BOOTSTRAP', 'TAILWINDCSS', 'GIT']
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -184,7 +184,7 @@ function Steps({userInput,setUserInput,setFinish}) {
 
           <div className="d-flex row p-3">
             <TextField id="standard-basic-name" label="Write a short summary of yourself " variant="standard" multiline rows={4}
-              defaultValue={"Enthusiastic and detail-oriented Full Stack Developer with hands-on experience in designing, developing, and deploying scalable web applications. Proficient in both front-end and back-end technologies, including HTML, CSS, JavaScript, React, Node.js, PHP, and SQL. Skilled in building responsive user interfaces, integrating APIs, and optimizing application performance. Strong problem-solving abilities, collaborative team player, and passionate about delivering user-focused solutions from concept to deployment."} varients="standard" onChange={e => setUserInput({ ...userInput, summary: e.target.value })} value={userInput.summary} />
+              defaultValue={"Enthusiastic and detail-oriented Full Stack Developer with hands-on experience in designing, developing, and deploying scalable web applications. Proficient in both front-end and back-end technologies, including HTML, CSS, JavaScript, React, Node.js, PHP, and SQL. Skilled in building responsive user interfaces, integrating APIs, and optimizing application performance. Strong problem-solving abilities, collaborative team player, and passionate about delivering user-focused solutions from concept to deployment."} varients="standard" onChange={e => setUserInput({ ...userInput, summary: e.target.value })} />
           </div>
         </div>
 
@@ -202,7 +202,11 @@ function Steps({userInput,setUserInput,setFinish}) {
   if(name && jobTitle && location){
    try{
     const result = await addResumeAPI(userInput)
-    console.log(result);
+    // console.log(result);
+    setResumeID(result?.data?.id)
+    console.log(result?.data?.id);
+    
+
     swal("Success!","Resume added Successfully!","Success");
     setFinish(true)
    }catch(err){

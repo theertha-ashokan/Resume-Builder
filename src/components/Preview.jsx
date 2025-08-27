@@ -13,7 +13,7 @@ import { addDownloadHistoryAPI } from '../services/allAPI';
 
 
 
-function Preview({userInput,finish}) {
+function Preview({userInput,finish,resumeID}) {
  const [downloadStatus,setDownloadStatus] = useState(false)
 
   const downloadCV = async()=>{
@@ -65,14 +65,14 @@ function Preview({userInput,finish}) {
                   {/* download */}
                   <button onClick={downloadCV} className='btn fs-5 text-primary'> <FaDownload /></button>
 
+                   {/* edit */}
+                  <div>
+                    <Edit resumeID={resumeID}/>
+                  </div>
+
                   {
                     downloadStatus &&
                   <>
-                   {/* edit */}
-                  <div>
-                    <Edit/>
-                  </div>
-    
                   {/* history */}
                   <Link to={'/history'} className='btn fs-5 text-primary'>
                  <MdManageHistory />

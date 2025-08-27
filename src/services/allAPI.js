@@ -6,7 +6,6 @@ import commonAPI from "./commonAPI"
     return await commonAPI("POST",`${BASEURL}/all-resumes`,resume)
   }
 
-//edit resume API -PUT
 //add hstory API- POST
 export const addDownloadHistoryAPI = async (resume)=>{
  return await commonAPI("POST",`${BASEURL}/history`,resume)
@@ -20,4 +19,10 @@ export const getHistoryAPI = async()=>{
 
 export const deleteHistoryAPI = async(id)=>{
   return await commonAPI("DELETE",`${BASEURL}/history/${id}`,{})
+}
+
+//edit resume API -GET
+// get a resume-GET called  by edit component when its open in browser(useEffect)
+export const getResumeAPI = async(id)=>{
+  return await commonAPI("GET",`${BASEURL}/all-resumes/${id}`,{})
 }
