@@ -42,7 +42,7 @@ const [userInput, setUserInput] = React.useState({
      {
       finish?
       <div style={{height:'100vh'}}className='d-flex justify-content-center align-items-center'>
-         <Preview resumeID={resumeID} userInput={userInput} finish={finish}/>
+         <Preview  setUserInput={setUserInput} resumeID={resumeID} userInput={userInput} finish={finish}/>
       </div>
       :
       <div className="container">

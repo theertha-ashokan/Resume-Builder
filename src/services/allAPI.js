@@ -6,6 +6,12 @@ import commonAPI from "./commonAPI"
     return await commonAPI("POST",`${BASEURL}/all-resumes`,resume)
   }
 
+
+  //edit resume API -PUTT - called by edit component when update button cliked
+  export const  editResumeAPI = async(id,resume)=>{
+    return await commonAPI("PUT",`${BASEURL}/all-resumes/${id}`,resume)
+  }
+
 //add hstory API- POST
 export const addDownloadHistoryAPI = async (resume)=>{
  return await commonAPI("POST",`${BASEURL}/history`,resume)

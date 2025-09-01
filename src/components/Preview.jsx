@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 import { Divider, Paper } from '@mui/material';
 import { Link } from 'react-router-dom'
@@ -13,7 +13,8 @@ import { addDownloadHistoryAPI } from '../services/allAPI';
 
 
 
-function Preview({userInput,finish,resumeID}) {
+function Preview({userInput,setUserInput,finish,resumeID}) {
+
  const [downloadStatus,setDownloadStatus] = useState(false)
 
   const downloadCV = async()=>{
@@ -67,7 +68,7 @@ function Preview({userInput,finish,resumeID}) {
 
                    {/* edit */}
                   <div>
-                    <Edit resumeID={resumeID}/>
+                    <Edit setUpdateUserInput={setUserInput} resumeID={resumeID}/>
                   </div>
 
                   {
